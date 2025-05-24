@@ -1,0 +1,198 @@
+body {
+  background: #3ca7ff; /* Pale blue */
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 40px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ==== HEADER ==== */
+h1 {
+  font-size: 3rem;
+  color: #ff66cc;
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 2;
+}
+
+h1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ==== STAR COUNTER ==== */
+p {
+  font-size: 1.4rem;
+  margin-top: 10px;
+  z-index: 2;
+  position: relative;
+}
+
+.star-label {
+  color: #ff99cc;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(255, 105, 180, 0.6);
+}
+
+#score {
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 4px 12px;
+  margin-left: 8px;
+  background: #ff66cc;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+  transition: transform 0.3s ease;
+}
+
+#score.bump {
+  transform: scale(1.2);
+}
+
+/* ==== GAME BOARD ==== */
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  grid-gap: 15px;
+  justify-content: center;
+  margin: 30px auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==== TILE STRUCTURE ==== */
+.tile {
+  width: 120px;
+  height: 120px;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+}
+
+.tile:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.tile-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.tile.flipped .tile-inner {
+  transform: rotateY(180deg);
+}
+
+.tile-front, .tile-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+}
+
+/* ==== TILE FRONT ==== */
+.tile-front {
+  background: linear-gradient(145deg, #ff66cc, #ff99cc);
+  border: 2px solid #ff99cc;
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+}
+
+/* ==== TILE BACK ==== */
+.tile-back {
+  background-size: cover;
+  background-position: center;
+  transform: rotateY(180deg);
+  border-radius: 12px;
+}
+
+/* ==== CONFETTI CANVAS ==== */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 600px) {
+  #game-board {
+    grid-template-columns: repeat(2, 100px);
+    grid-gap: 12px;
+  }
+
+  .tile {
+    width: 100px;
+    height: 100px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+}
+
+/* ==== TWINKLING STARS BACKGROUND ==== */
+.stars-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stars-bg::before,
+.stars-bg::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: transparent;
+  box-shadow: 
+    100px 50px white, 200px 100px #fff, 300px 150px white,
+    400px 200px #ddd, 500px 250px white, 600px 300px #ccc,
+    700px 350px #fff, 800px 400px white, 900px 450px #ddd;
+  animation: twinkle 4s infinite linear;
+  opacity: 0.6;
+}
+
+.stars-bg::after {
+  animation-delay: 2s;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+    opacity: 1;
+  }
+}
