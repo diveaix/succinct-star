@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Memory Match Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>SUCCINCT STARS ⭐</h1>
+
+  <div id="game-board"></div>
+
+  <p>
+    <span class="star-label">⭐ Stars:</span>
+    <span id="score">0</span>
+  </p>
+
+  <!-- Background music -->
+  <audio id="bg-music" src="asset/Faneto.mp3" loop autoplay></audio>
+
+  <script src="script.js"></script>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Fallback for autoplay restrictions -->
+  <script>
+    window.addEventListener('click', () => {
+      const music = document.getElementById('bg-music');
+      if (music.paused) {
+        music.play().catch(() => {
+          console.log("Autoplay blocked");
+        });
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>
